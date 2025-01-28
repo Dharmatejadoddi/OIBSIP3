@@ -1,26 +1,20 @@
-document.getElementById('convert').onclick = tempConvert;
-document.getElementById('clear').onclick = clearForm;
+function convertTemp() {
+    let temp = parseFloat(document.getElementById("tempInput").value);
+    let unit = document.getElementById("unit").value;
+    let resultText = "";
 
-function tempConvert() {
-    
-    var fahrenheit = document.getElementById("fahrenheit").value;
-    var celsius = document.getElementById("celsius").value;
-  
-  if (fahrenheit != '') {
-        celsius = (parseFloat(fahrenheit) - 32) / 1.8;
-    } 
-    else {
-        fahrenheit = (parseFloat(celsius) * 1.8) + 32;
+    if (isNaN(temp)) {
+        document.getElementById("result").innerText = " Please enter a valid number!";
+        return;
     }
-    document.getElementById('fahrenheit').value = parseFloat(fahrenheit).toFixed(1);
-    document.getElementById('celsius').value = parseFloat(celsius).toFixed(1);
+
+    if (unit === "C") {
+        resultText = `${temp}°C = ${(temp * 9/5 + 32).toFixed(2)}°F | ${(temp + 273.15).toFixed(2)}K`;
+    } else if (unit === "F") {
+        resultText = `${temp}°F = ${((temp - 32) * 5/9).toFixed(2)}°C | ${(((temp - 32) * 5/9) + 273.15).toFixed(2)}K`;
+    } else {
+        resultText = `${temp}K = ${(temp - 273.15).toFixed(2)}°C | ${((temp - 273.15) * 9/5 + 32).toFixed(2)}°F`;
+    }
+
+    document.getElementById("result").innerText = ` Converted Value: ${resultText}`;
 }
-
-
-function clearForm() {
-    document.getElementById('fahrenheit').value = '';
-    document.getElementById('celsius').value = '';
-} 
-
-
-
